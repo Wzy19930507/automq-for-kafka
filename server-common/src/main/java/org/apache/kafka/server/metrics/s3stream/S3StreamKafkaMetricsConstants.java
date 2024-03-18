@@ -37,4 +37,8 @@ public class S3StreamKafkaMetricsConstants {
     public static final String FETCH_EXECUTOR_FAST_NAME = "fast";
     public static final String FETCH_EXECUTOR_SLOW_NAME = "slow";
     public static final String FETCH_EXECUTOR_DELAYED_NAME = "delayed";
+
+    public static final AttributeKey<String> LABEL_TYPE_NAME = AttributeKey.stringKey("type");
+    public static final String UPPER_BOUND_TYPE_NAME = "upper_bound";
+    public static final String LOWER_BOUND_TYPE_NAME = "lower_bound";
 }

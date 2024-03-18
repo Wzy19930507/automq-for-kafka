@@ -119,12 +119,12 @@ public class S3ObjectControlManager {
         this.lifecycleCheckTimer.scheduleWithFixedDelay(this::triggerCheckEvent,
                 DEFAULT_INITIAL_DELAY_MS, DEFAULT_LIFECYCLE_CHECK_INTERVAL_MS, TimeUnit.MILLISECONDS);
         this.objectCleaner = new ObjectCleaner();
-        S3StreamKafkaMetricsManager.setS3ObjectCountMapSupplier(() -> Map.of(
+        S3StreamKafkaMetricsManager.getInstance().setS3ObjectCountMapSupplier(() -> Map.of(
                 S3StreamKafkaMetricsConstants.S3_OBJECT_PREPARED_STATE, preparedObjects.size(),
                 S3StreamKafkaMetricsConstants.S3_OBJECT_MARK_DESTROYED_STATE, markDestroyedObjects.size(),
                 S3StreamKafkaMetricsConstants.S3_OBJECT_COMMITTED_STATE, objectsMetadata.size()
                         - preparedObjects.size() - markDestroyedObjects.size()));
-        S3StreamKafkaMetricsManager.setS3ObjectSizeSupplier(s3ObjectSize::get);
+        S3StreamKafkaMetricsManager.getInstance().setS3ObjectSizeSupplier(s3ObjectSize::get);
     }
 
     private void triggerCheckEvent() {

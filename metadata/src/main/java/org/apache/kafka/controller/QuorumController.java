@@ -1942,7 +1942,7 @@ public final class QuorumController implements Controller {
         log.info("Creating new QuorumController with clusterId {}, authorizer {}.", clusterId, authorizer);
 
         this.raftClient.register(metaLogListener);
-        S3StreamKafkaMetricsManager.setIsActiveSupplier(this::isActive);
+        S3StreamKafkaMetricsManager.getInstance().setIsActiveSupplier(this::isActive);
     }
 
     @Override

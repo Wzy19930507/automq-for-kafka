@@ -53,7 +53,7 @@ public class ClusterModel {
             logContext = new LogContext("[ClusterModel]");
         }
         logger = logContext.logger(AutoBalancerConstants.AUTO_BALANCER_LOGGER_CLAZZ);
-        S3StreamKafkaMetricsManager.setAutoBalancerMetricsTimeMapSupplier(this::calculateBrokerLatestMetricsTime);
+        S3StreamKafkaMetricsManager.getInstance().setAutoBalancerMetricsTimeMapSupplier(this::calculateBrokerLatestMetricsTime);
     }
 
     Map<Integer, Long> calculateBrokerLatestMetricsTime() {

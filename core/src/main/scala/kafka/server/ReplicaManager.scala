@@ -274,7 +274,7 @@ class ReplicaManager(val config: KafkaConfig,
   private val fastFetchExecutor = Executors.newFixedThreadPool(4, ThreadUtils.createThreadFactory("kafka-apis-fast-fetch-executor-%d", true))
   private val slowFetchExecutor = Executors.newFixedThreadPool(12, ThreadUtils.createThreadFactory("kafka-apis-slow-fetch-executor-%d", true))
   private val fetchExecutorQueueSizeGaugeMap = new util.HashMap[String, Integer]()
-  S3StreamKafkaMetricsManager.setFetchPendingTaskNumSupplier(() => {
+  S3StreamKafkaMetricsManager.getInstance().setFetchPendingTaskNumSupplier(() => {
     fetchExecutorQueueSizeGaugeMap.put(FETCH_EXECUTOR_FAST_NAME, fastFetchExecutor match {
       case executor: ThreadPoolExecutor => executor.getQueue.size()
       case _ => 0
@@ -290,7 +290,7 @@ class ReplicaManager(val config: KafkaConfig,
   private val fastFetchLimiter = new FairLimiter(100 * 1024 * 1024) // 100MiB
   private val slowFetchLimiter = new FairLimiter(100 * 1024 * 1024) // 100MiB
   private val fetchLimiterGaugeMap = new util.HashMap[String, Integer]()
-  S3StreamKafkaMetricsManager.setFetchLimiterPermitNumSupplier(() => {
+  S3StreamKafkaMetricsManager.getInstance().setFetchLimiterPermitNumSupplier(() => {
     fetchLimiterGaugeMap.put(FETCH_LIMITER_FAST_NAME, fastFetchLimiter.availablePermits())
     fetchLimiterGaugeMap.put(FETCH_LIMITER_SLOW_NAME, slowFetchLimiter.availablePermits())
     fetchLimiterGaugeMap

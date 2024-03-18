@@ -155,8 +155,8 @@ public class TelemetryManager {
             S3StreamMetricsManager.configure(new MetricsConfig(metricsLevel(), Attributes.empty()));
             S3StreamMetricsManager.initMetrics(meter, TelemetryConstants.KAFKA_METRICS_PREFIX);
 
-            S3StreamKafkaMetricsManager.configure(new MetricsConfig(metricsLevel(), Attributes.empty()));
-            S3StreamKafkaMetricsManager.initMetrics(meter, TelemetryConstants.KAFKA_METRICS_PREFIX);
+            S3StreamKafkaMetricsManager.getInstance().configure(new MetricsConfig(metricsLevel(), Attributes.empty()));
+            S3StreamKafkaMetricsManager.getInstance().initialize(meter, TelemetryConstants.KAFKA_METRICS_PREFIX);
         }
 
         LOGGER.info("Instrument manager initialized with metrics: {} (level: {}), trace: {} report interval: {}",

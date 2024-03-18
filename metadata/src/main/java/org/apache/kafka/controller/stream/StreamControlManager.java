@@ -133,14 +133,14 @@ public class StreamControlManager {
 
         this.cleanupScheduler.scheduleWithFixedDelay(this::triggerCleanupScaleInNodes, 30, 30, TimeUnit.MINUTES);
 
-        S3StreamKafkaMetricsManager.setStreamSetObjectNumSupplier(() -> {
+        S3StreamKafkaMetricsManager.getInstance().setStreamSetObjectNumSupplier(() -> {
             Map<String, Integer> numMap = new HashMap<>();
             for (NodeMetadata nodeMetadata : nodesMetadata.values()) {
                 numMap.put(String.valueOf(nodeMetadata.getNodeId()), nodeMetadata.streamSetObjects().size());
             }
             return numMap;
         });
-        S3StreamKafkaMetricsManager.setStreamObjectNumSupplier(() -> {
+        S3StreamKafkaMetricsManager.getInstance().setStreamObjectNumSupplier(() -> {
             return streamsMetadata.values().stream().mapToInt(it -> it.streamObjects().size()).sum();
         });
     }
